@@ -217,6 +217,7 @@ export default {
         },
 
         open(event, data) {
+            this.close();
             this.data = data;
             this.show = true;
 
