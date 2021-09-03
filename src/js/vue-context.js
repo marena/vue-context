@@ -217,22 +217,25 @@ export default {
         },
 
         open(event, data) {
-            this.close();
             this.data = data;
             this.show = true;
 
             this.$nextTick(() => {
                 [this.top, this.left] = this.positionMenu(event.clientY, event.clientX, this.$el);
 
-                this.$el.focus();
-                this.setItemRoles();
-                this.addHoverEventListener(this.$el);
+                this.$nextTick(() => {
+                    [this.top, this.left] = this.positionMenu(event.clientY, event.clientX, this.$el);
 
-                if (this.closeOnScroll) {
-                    this.addScrollEventListener();
-                }
+                    this.$el.focus();
+                    this.setItemRoles();
+                    this.addHoverEventListener(this.$el);
 
-                this.$emit('open', event, this.data, this.top, this.left);
+                    if (this.closeOnScroll) {
+                        this.addScrollEventListener();
+                    }
+
+                    this.$emit('open', event, this.data, this.top, this.left);
+                });
             });
         },
 
